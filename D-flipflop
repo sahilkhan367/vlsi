@@ -1,0 +1,32 @@
+module dflipflop(d, clk, q, qb);
+input d, clk;
+output reg q, qb;
+always@(posedge clk)
+begin
+case(d)
+1'b0:q=0;
+1'b1:q=1;
+endcase
+qb=~q;
+end 
+endmodule
+
+
+
+TEST BENCH
+
+module dflipfloptbff_v;
+reg d;
+reg clk;
+wire q;
+wire qb;
+dflipflip uut(.d(d),.clk(clk),.q(q),.qb(qb));
+initial clk=1'b0;
+always begin
+#10 clk=~clk;
+end
+initial begin
+d=1'b0;#100;
+d=1'b1;#100;
+end
+endmodule

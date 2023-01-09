@@ -1,0 +1,40 @@
+module cntr32bit(clk, rst, m, count)
+input clk, rst, m;
+output reg[31:0]count;
+always@(posedge clk or negedge rst)
+begin
+if(!rst)
+count=0;
+if(m)
+count=count+1;
+else
+count=count-1;
+end
+endmodule
+
+
+
+TEST BENCH
+
+module cntr32tbff_v;
+reg clk;
+reg rst;
+reg m;
+wire[31:0]count;
+cntr32 uut(.clk(clk),.rst(rst),.m(m),.count(count));
+initial begin
+clk=0;
+rst=0; #25;
+rst=1;
+end
+initial begin
+m=1;
+#600; m=0;
+rst=0; #25;
+rst=1; #500;
+m=0;
+end
+always #5 clk=~clk;
+initial
+#1400$finish;
+endmodule

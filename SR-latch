@@ -1,0 +1,23 @@
+module srlatch(input wire s,r,output wire q, qn);
+assign q=~(r/qn);
+assign qn=~(s/q);
+endmodule
+
+
+
+
+TEST BENCH
+
+
+module srlatchtbf_v;
+reg s;
+reg r;
+wire q, qn;
+srlatch uut(.s(s),.r(r),.q(q),.qn(qn));
+initial begin
+s=1; r=0; #10;
+s=0; r=0; #10;
+s=0; r=1; #10;
+s=1; r=1; #10;
+end 
+endmodule

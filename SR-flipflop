@@ -1,0 +1,39 @@
+module srflipflop(sr, clk, q, qb);
+input clk;
+input [1:0]sr;
+output reg q, qb;
+always@(posedge clk)
+begin
+case(sr)
+2'd0:q=q;
+2'd1:q=1'b0;
+2'd2:q=1'b1;
+2'd3:q=1'bz;
+endcase
+qb=~q;
+end 
+endmodule
+
+
+
+
+
+
+TEST BENCH
+
+
+module srflipfloptbff_v;
+reg[1:0]sr; reg clk;
+wire q; wire qb;
+srflipflop uut(.sr(sr),.(clk(clk),.q(q),.qb(qb));
+initial clk=1'b0;
+always begin
+#10 clk=~clk;
+end
+initial begin
+sr=2'd1;#100;
+sr=2'd0;#100;
+sr=2'd2;#100;
+sr=2'd3;#100;
+end
+endmodule

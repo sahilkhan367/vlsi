@@ -1,0 +1,35 @@
+module jkflip(jk, clk, q, qb);
+input[1:0]jk;
+input clk;
+output reg q, qb;
+always@(posedge clk)
+begin
+case(jk)
+2'd0:q=q;
+2'd1:q=1'b0;
+2'd2:q=1'b1;
+2'd3:q=~q;
+endcase
+qb=~q;
+end
+endmodule
+
+
+
+TEST BENCH
+
+module jkfliptbff_v;
+reg[1:0]jk; reg clk; wire q; wire qb;
+jkflip uut(.jk(jk),.clk(clk),.q(q),.qb(qb));
+initial clk=1'b1;
+always begin
+#5 clk=~clk;
+end
+initial begin
+jk=2'd0;#100;
+jk=2'd1;#100;
+jk=2'd2;#100;
+jk=2'd3;#100;
+end
+endmodule
+

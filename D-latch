@@ -1,0 +1,30 @@
+module dlatch(e,d,q);
+input e,d;
+output req q;
+always@(e or d)
+begin
+if(e)
+q<=d;
+end
+endmodule
+
+
+
+
+
+TEST BENCH
+
+
+module dlatchtbf_v;
+reg e;
+reg d;
+wire q;
+dlatch uut(.e(e),.d(d),.q(q));
+initial begin
+e=0;
+d=0;
+end
+always#3e=~e;
+always#5d=~d;
+initial#1000$stop;
+endmodule

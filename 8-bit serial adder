@@ -1,0 +1,54 @@
+module serialadder(a, b, clk, start, ready, result, cout);
+input[7:0]a, b;
+input clk, start;
+output reg[7:0]result;
+output reg cout, ready;
+reg sum;
+reg[8:0]carry;
+integer count;
+always@(posedge clk)
+begin
+if(start)
+begin
+count=0;
+carry=0;
+result=0;
+end 
+if(count<8)
+begin
+sum=a[count]^b[count]^carry[count];
+carry[count+1]=(a[count]&b[count])|(b[count]&carry[count])|(carry[count]&a[count]);
+result={sum,result[7:1]};
+count=count+1;
+end
+cout=carry[count];
+if(count==8)
+ready=1;
+else
+ready=0;
+end 
+endmodule
+
+
+
+
+TEST BENCH
+
+
+module serialaddertbff_v;
+reg[7:0]a; reg[7:0]b; reg clk; reg start;
+wire ready;
+wire [7:0]result;
+wire cout;
+serialadder uut(.a(a),.b(b),.clk(clk),.start(start),.ready(ready),.result(result),.cout(cout));
+initial clk=1'b0;
+always 
+#10clk=~clk;
+initial begin
+a=8'b11110000; 
+b=8'b00001111;
+start=0; #20;
+start=1; #20;
+start=0; #160;
+end
+endmodule

@@ -1,0 +1,67 @@
+_______________________________________________________________________________________________________________________
+CMOS INVERTER
+
+ Vdd Vdd 0 dc 5
+ Vss Vss 0 dc 0
+ Vin in 0 dc pwl 10ns 0 20ns 5 45ns 5 50ns 0
+ cload out 0 250fF
+ .measure tran tf tring v(out) val=4.5 fall=1 td=8ns targ(vout) val=0.5 fall=1
+ .measure tran trig v(out)val=0.5 rise=1 td =50ns trag(vout)val=4.5 rise=1
+ .tran 0 0.1us
+ .include C:\Electric\C5_models_txt
+ .end
+ ______________________________________________________________________________________________________________________________
+ 
+ 2input Cmos Nand gate
+ 
+ Vdd Vdd 0 dc 5
+ Vss Vss 0 dc 0
+ Va a 0 pules(0 5 0 1n 1n 10n 20n)
+ Vb b 0 pulse(0 5 0 1n 1n 20n 50n)
+ .tran 1n 100n
+ .include C:\Electric\C5_models.txt
+ .end
+ __________________________________________________________________________________________________________________________________
+ 
+ 
+ 
+ 3rd  common source amplifier
+ 
+ v1 Vdd 0 dc 5
+ v2 Vss 0 dc 0
+ v3 in 0 dc 0 ac 0 sine 800m 20m 10MEG
+ .tran 0 600 0 0.25n
+ .include C:\Electric\C5_models.txt
+ .end
+ 
+ 
+ _______________________________________________________________________________________________________________________________________________
+ 
+ 
+ 
+ operational amplifier
+ 
+ Vdd Vdd 0 dc 2.5
+ Vss Vss 0 dc -2.5
+ vbias vbias 0 dc 2.5
+ vin1 vin1 0 ac 1 sin (0 6m 1k 0 0 0)
+ vin2 vin2 0 ac 1 sin (0 4m 1k 0 0 0)
+ .include C:\Electric\C5_models.txt
+ .tran 0 10m
+ .end
+ 
+ _________________________________________________________________________________________________________________________________________
+ 
+ differential amplifer
+ 
+ 
+ Vdd Vdd 0 dc 2.5
+ Vss Vss 0 dc -2.5
+ vbias vbias 0 dc 2.5
+ vin1 vin1 0 ac 1 sin (0 4m 1k 0 0 0)
+ vin2 vin2 0 ac 1 sin (0 2m 1k 0 0 0)
+ .include C:\Electric\C5_models.txt
+ .tran 0 10m
+ .end
+ 
+ 
